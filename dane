@@ -1,0 +1,29 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+data = pd.read_csv('smoking.csv')
+
+df = pd.DataFrame(data) #utworzenie DataFrame z danych
+
+#df.info()
+
+#zamiana wartości tekstowych na numeryczne
+df['gender'] = df['gender'].map({'M': 1, 'F': 0})
+df['tartar'] = df['tartar'].map({'Y': 1, 'N': 0})
+
+
+#1.1 Braki danych i statystyki opisowe
+
+#Liczba brakujących wartości w każdej kolumnie
+missing = df.isna().sum().sort_values(ascending=False)
+print('Brakujące wartości na kolumnę:')
+print(missing)
+
+#Statystyki opisowe
+stats = df.describe()
+
+#Udział klas w zmiennej docelowej 'smoking'
+smoker_counts = df['smoking'].value_counts(dropna=False)
+print('\nUdział klas w zmiennej docelowej "smoking":')
+print(smoker_counts)
